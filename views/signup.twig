@@ -1,0 +1,68 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+    <h1>Register</h1>
+    {% if errorForm %}
+        <p class="text-danger">Please fix the following errors.</p>
+        <ul class="errors">
+            {% for error in errorForm %}
+
+                {% if error.username %}
+                <li>{{  error.username.message }}</li>
+                {% endif %}
+
+                {% if error.firstname %}
+                    <li>{{  error.firstname.message }}</li>
+                {% endif %}
+
+                {% if error.lastname %}
+                    <li>{{  error.lastname.message }}</li>
+                {% endif %}
+
+                {% if error.email %}
+                    <li>{{  error.email.message }}</li>
+                {% endif %}
+
+                {% if error.password %}
+                    <li>{{  error.password.message }}</li>
+                {% endif %}
+
+                {% if error.passwordConfirm %}
+                    <li>{{  error.passwordConfirm.message }}</li>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="" method="POST">
+        <p class="text-center">Do you have an account ? <a href="/users/login">Please click here to login !</a></p>
+      
+        <div class="form-group">
+            <label for="username">Username :</label>
+            <input type="text" name="username" id="username" value="nodejs" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="firstname">First name :</label>
+            <input type="text" name="firstname" id="firstname" value="firstname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last name :</label>
+            <input type="text"  name="lastname" id="lastname" value="lastname"  class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">email :</label>
+            <input type="email" id="email" name="email" value="nodejs@test.com" value="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" name="password" id="password" value="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password-confirm">Repeat Password :</label>
+            <input type="password" name="passwordConfirm" id="password-confirm" value="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">sign up</button>
+    </form>
+
+
+{% endblock body %}

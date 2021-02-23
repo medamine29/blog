@@ -1,0 +1,73 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+
+    <h1 class="text-center">Add your article !</h1>
+    {% if errorForm %}
+        <p class="text-danger">Please fix the following errors.</p>
+        <ul class="errors">
+            {% for error in errorForm %}
+
+                {% if error.title %}
+                <li>{{  error.title.message }}</li>
+                {% endif %}
+
+                {% if error.category %}
+                    <li>{{  error.category.message }}</li>
+                {% endif %}
+
+                {% if error.content %}
+                    <li>{{  error.content.message }}</li>
+                {% endif %}
+
+                {% if error.image %}
+                    <li>{{  error.image.message }}</li>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="" method="POST" enctype="multipart/form-data"> 
+        <div class="form-group">
+            <label for="title">Title :</label>
+            <input type="text" name="title" id="title" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="category">Category :</label>
+            <select name="category" id="category" class="form-control" >
+                <option value="">Choice your article category !</option>
+                {% if categories %}
+                   {% for category in categories %}
+                   <option value="{{category.title }}">{{ category.title }}</option>
+                   {% endfor %}
+                {% endif %}
+                
+            </select>    
+        </div>
+        <div class="form-group">
+            <label for="">Content :</label>
+            <textarea name="content" id="content" class="form-control" cols="30" rows="10" ></textarea>
+            
+        </div>
+        <div class="form-group">
+            <label for="image">Image :</label>
+            <input type="file" name="image" id="image" class="form-control" >
+            
+        </div>
+        <button class="btn btn-success mt-3">Add Article</button>
+    </form>
+
+    
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+{% endblock %}
+
