@@ -6,6 +6,7 @@ const fs = require('fs');
 exports.listArticle = (req, res)=>{
     Article.find()
     .then((articles)=>{
+      console.log(articles);
       res.render('index', { title: 'Express', articles: articles })
     })
     .catch((err)=>{

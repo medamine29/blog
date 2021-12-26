@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index.route');
 var usersRouter = require('./routes/users.route');
 const User = require('./models/user.model');
 const Article = require('./models/article.model');
+const categoryModel = require('./models/category.model');
 const dotenv = require('dotenv').config();
 
 var app = express();
@@ -22,10 +23,18 @@ app.use(session({
   saveUninitialized: false
 }));
 
-mongoose.connect('mongodb+srv://node:xLLoMRo3rU8u6LYM@cluster0.bv3x3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost:27017/blog',{useNewUrlParser: true, useUnifiedTopology: true})
   .then(()=>console.log("Connexion à MongoDB réussie"))
   .catch(()=> console.log("Echec de connexion à mongoDB"));
 
+if(!(categoryModel.find()).length){
+  const data = ["Actualités", "Sport", "Littérature", "Divers"]
+  data.forEach(async (e)=>{
+    const newCategory = new categoryModel({title: e, description: "Article de la catégorie : "+e})
+    await newCategory.save()
+    console.log(newCategory);
+  })
+}
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
